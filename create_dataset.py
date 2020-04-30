@@ -59,11 +59,12 @@ def construct_dataset(parent_dir, output_file):
                         print("\tAn error occured on reading file: {}".format(file_path))
 
 def split_dataset(output_file):
+    output_folder = output_file.partition('/')[0]
     df = pd.read_csv(output_file, sep='\t')
     df_train, df_test = train_test_split(df, test_size=0.2)
     # export to csv
-    df_train.to_csv('train_set.tsv', sep='\t', index=False)
-    df_train.to_csv('test_set.tsv', sep='\t', index=False)
+    df_train.to_csv(output_folder + '/train_set.tsv', sep='\t', index=False)
+    df_test.to_csv(output_folder + '/test_set.tsv', sep='\t', index=False)
 
 def main():
     # parse and print arguments
